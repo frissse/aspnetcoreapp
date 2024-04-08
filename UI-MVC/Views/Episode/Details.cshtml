@@ -1,0 +1,99 @@
+@model PM.BL.Domain.Episode
+
+@{
+    ViewBag.Title = "Episode Details";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/site.css"/>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+<h2>Details of Episode with Id: @Model.Id</h2>
+@if (Model == null)
+{
+    <p>no episode found</p>
+}
+else
+{
+    <dl>
+        <dt>Episode ID</dt>
+        <dd id="episodeId">@Model.Id</dd>
+        <dt>Episode Title</dt>
+        <dd>@Model.EpisodeTitle</dd>
+        <dt>Duration</dt>
+        <dd>@(Model.Duration.ToString() ?? "unknown")</dd>
+        <dt>Category</dt>
+        <dd>@Model.Category</dd>
+        <dt>Host</dt>
+        <dd>@(Model.Host?.Name ?? "unknown")</dd>
+        <dt>Listeners</dt>
+        @if ((User.Identity?.Name == Model.User.UserName && User.Identity.IsAuthenticated) || User.IsInRole("admin"))
+        {
+            <input id="listeners" value=@Model.Listeners />
+        }else {
+            <dd>@Model.Listeners</dd>
+        }
+        
+        <dt>Episode Number</dt>
+        <dd>@Model.EpisodeNumber</dd>
+        <dt>Published by</dt>
+        <dd>@Model.User.Email</dd>
+    </dl>
+    <span id="editFeedback" class="m-1">
+        
+    </span>
+    @if ((User.Identity?.Name == Model.User.UserName && User.Identity.IsAuthenticated)|| User.IsInRole("admin"))
+    {
+        <div class="mb-3 row">
+            <button id="editButton" class="btn btn-secondary mb-4 col-2">Edit episode</button>
+        </div>
+    }
+    
+}
+
+<h3>Guests</h3>
+@if (Model.GuestsOnEpisode.Count <= 0)
+{
+    <table class="table">
+        <tr>
+            <td colspan="5">No guests on this episode</td>
+        </tr>
+    </table>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Guest Name</th>
+            <th>Guest Name</th>
+            <th>Guest Expertise</th>
+            <th>Guest Gender</th>
+            <th>Details</th>
+        </tr>
+        @foreach (PM.BL.Domain.EpisodeParticipation g in Model.GuestsOnEpisode)
+        {
+            <tr>
+                <td>@g.Guest.Id</td>
+                <td>@g.Guest.Name</td>
+                <td>@g.Guest.Expertise</td>
+                <td>@g.Guest.Gender</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Guest" asp-route-id="@g.Guest.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+</body>
+</html>
+
+@section Scripts {
+    <script src="~/js/episode/details.js" defer></script>
+}

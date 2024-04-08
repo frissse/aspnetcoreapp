@@ -1,0 +1,19 @@
+@model IEnumerable<PM.BL.Domain.Host>
+    
+@{
+    ViewBag.Title = "All Hosts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div id="tableHosts">
+    <div id="spinner"></div>
+
+</div>
+
+<button id="reloadHosts" class="btn btn-primary" type="button">Refresh Host List</button>
+
+@section Scripts {
+    <script src="~/js/hosts/index.js" defer></script>
+}
+

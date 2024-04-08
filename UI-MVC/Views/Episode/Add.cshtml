@@ -1,0 +1,80 @@
+@using PM.BL.Domain
+@model PM.BL.Domain.Episode;
+@{
+    ViewBag.Title = "Add episode";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
+    
+   
+</head>
+<body>
+<h2>@ViewBag.Title</h2>
+<form asp-controller="Episode" asp-action="Add" method="post">
+    <fieldset class="row mb-3">
+        <div class="col-sm">
+            <label asp-for="EpisodeTitle">Episode title</label>
+        </div>
+        <div class="col-sm-10">
+            <input asp-for="EpisodeTitle" class="form-control" placeholder="episode title"/>
+            <span asp-validation-for="EpisodeTitle" class="text-danger"></span>
+        </div>
+    </fieldset>
+
+
+    <fieldset class="row mb-3">
+        <fieldset class="col-sm ">
+            <label asp-for="Duration">Episode duration</label>
+        </fieldset>
+        <fieldset class="col-sm-10">
+            <input asp-for="Duration" class="form-control" placeholder="Duration in format HH:mm:ss"/>
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </fieldset>
+    </fieldset>
+
+    <fieldset class="row mb-3">
+        <fieldset class="col-sm">
+            <label asp-for="EpisodeNumber" class="form-label mr-4">Episode number</label>
+        </fieldset>
+        <fieldset class="col-sm-10">
+            <input asp-for="EpisodeNumber" class="form-control" placeholder="episode number"/>
+            <span asp-validation-for="EpisodeNumber" class="text-danger"></span>
+        </fieldset>
+    </fieldset>
+
+    <div class="row mb-3">
+        <div class="col-sm">
+            <label asp-for="Category" class="form-label mr-4">Category</label>
+        </div>
+        <div class="col-sm-10">
+            <select asp-for="@Model.Category" asp-items="Html.GetEnumSelectList<Category>()">
+            </select>
+
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-sm">
+            <label asp-for="Listeners" class="form-label mr-4">Listeners</label>
+        </div>
+        <div class="col-sm-10">
+            <input asp-for="Listeners" class="form-control" placeholder="Listeners"/>
+            <span asp-validation-for="Listeners" class="text-danger"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+</body>
+</html>
+

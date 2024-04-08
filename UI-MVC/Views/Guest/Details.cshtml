@@ -1,0 +1,90 @@
+@model PM.BL.Domain.Guest
+
+@{
+    ViewBag.Title = "Guest Details";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/site.css" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<h2>Guest details</h2>
+<dl>
+    <dt>Guest ID</dt>
+    <dd id="guestId">@Model.Id</dd>
+    <dt>Guest Name</dt>
+    <dd>@Model.Name</dd>
+    <dt>Expertise</dt>
+    <dd>@Model.Expertise</dd>
+    <dt>Gender</dt>
+    <dd>@Model.Gender</dd>
+</dl>
+
+<h3>Episodes of guest</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Number</th>
+            <th>Category</th>
+            <th>Listens </th>
+        </tr>
+        </thead>
+        <tbody id="listEpisodesOfGuests">
+
+        </tbody>
+    </table>
+    
+    <h3>Add new episode</h3>
+        <span id="errorResponse"></span>
+        <form method="post">
+            <fieldset class="row mb-3">
+                <div class="col-sm">
+                    <label htmlFor="EpisodeTitle">Episode</label>
+                </div>
+                <div class="col-sm-10">
+                    <select id="episodeSelect">
+                        
+                    </select>  
+                </div>
+                
+            </fieldset>
+            <fieldset class="row mb-3">
+                <div class="col-sm ">
+                    <label for="dateRecorded" >Date Recorded</label>
+                </div>
+                <div class="col-sm-10">
+                    <input id="dateRecorded" type="date" class="form-control" placeholder="Time in format MM/dd/yyyy"/>
+                </div>
+            </fieldset>
+            <fieldset class="row mb-3">
+                <div class="col-sm 10">
+                    <label for="sponsor">Sponsor</label>
+                </div>
+                <div class="col-sm-10">
+                    <select id="sponsorSelect">
+                        
+                    </select>
+                </div>
+            </fieldset>
+            <button id="addEpisodeParticipationButton" type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    
+</div>
+</body>
+</html>
+
+@section Scripts {
+     <script src="~/js/guests/details.js" defer></script>
+}
